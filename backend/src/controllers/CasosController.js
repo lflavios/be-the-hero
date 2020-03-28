@@ -7,7 +7,7 @@ module.exports = {
     const [count] = await connection('casos').count();
 
     const casos = await connection('casos')
-      .join('ongs', 'ong_id', '=', 'casos.ong_id')
+      .join('ongs', 'ongs.id', '=', 'casos.ong_id')
       .limit(5)
       .offset((page -1) *5)
       .select([
@@ -21,14 +21,16 @@ module.exports = {
   
     response.header('X-Total-Count', count['count(*)']);
 
+    console.log(casos);
+
     return response.json(casos);
   },
 
   async create(request, response) {
-    const { titulo, ong_ind, descricao, valor } = request.body;
+    const { titulo, descricao, valor } = request.body;
     const ong_id = request.headers.authorization;
 
-    const [id] = await await connection('casos').insert({
+    const [id] = await connection('casos').insert({
       titulo,
       descricao,
       valor,
@@ -47,7 +49,7 @@ module.exports = {
       .select('ong_id')
       .first());
 
-    if ( !caso || (caso.ong_id != ong_id)) {
+    if ( !caso || (caso.ong_id !== ong_id)) {
       return response.status(401).json({ error: 'Operação não permitida.' });
     }
 
