@@ -17,7 +17,7 @@
     "cross-env": "^7.0.2",
     "express": "^4.17.1",
     "joi-phone-number": "^4.1.0",
-    "knex": "^0.20.13",
+    "knex": "^2.4.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-reanimated": "^1.7.1",
     "react-native-safe-area-context": "^0.7.3",
